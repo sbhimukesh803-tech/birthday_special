@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Animation</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family: Arial, sans-serif;
+    height:100vh;
+    overflow:hidden;
+    background: linear-gradient(45deg, #ff9a9e, #fecfef, #ff9a9e);
+    background-size: 400% 400%;
+    animation: pinkGradient 10s ease infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+@keyframes pinkGradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{text-align:center;}
+
+.happy-birthday{
+    font-size:4rem;
+    color:#fff;
+    text-shadow:0 0 30px #ff69b4;
+    margin-bottom:20px;
+}
+
+.input-section{
+    background:rgba(255,255,255,0.2);
+    padding:20px;
+    border-radius:20px;
+}
+
+input{
+    padding:10px;
+    margin:10px;
+    border:none;
+    border-radius:20px;
+    text-align:center;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff1493;
+    color:white;
+    cursor:pointer;
+}
+
+/* RESULT */
+.result-section{display:none;margin-top:20px;}
+
+.age-text{
+    font-size:2rem;
+    color:white;
+    margin:20px 0;
+}
+
+/* 🔥 VIDEO + WISHES */
+.wish-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:30px;
+}
+
+.side-video{
+    width:130px;
+    height:200px;
+    object-fit:cover;
+    border-radius:15px;
+    box-shadow:0 0 20px #ff69b4;
+}
+
+.wish-text{
+    max-width:300px;
+    color:white;
+    line-height:1.7;
+}
+
+.final-cake{
+    font-size:5rem;
+    margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 class="happy-birthday">Happy Birthday</h1>
+
+    <div class="input-section">
+        <input type="text" id="nameInput" placeholder="Your Name"><br>
+        <input type="date" id="birthInput"><br>
+        <button onclick="startCelebration()">Next 🎉</button>
+    </div>
+
+    <div class="result-section" id="resultSection">
+        <div class="age-text" id="ageText"></div>
+
+        <!-- 🎥 VIDEOS LEFT + RIGHT -->
+        <div class="wish-container">
+
+            <video class="side-video" autoplay muted loop>
+                <source src="test.mp4" type="video/mp4">
+            </video>
+
+            <div class="wish-text" id="wishText"></div>
+
+            <video class="side-video" autoplay muted loop>
+                <source src="test.mp4" type="video/mp4">
+            </video>
+
+        </div>
+
+        <div class="final-cake">🎂🕯️</div>
+    </div>
+</div>
+
+<script>
+
+function startCelebration(){
+    let name=document.getElementById("nameInput").value;
+    let dob=document.getElementById("birthInput").value;
+
+    if(name==""||dob==""){
+        alert("Fill all details!");
+        return;
+    }
+
+    document.querySelector(".input-section").style.display="none";
+    document.getElementById("resultSection").style.display="block";
+
+    let age=new Date().getFullYear()-new Date(dob).getFullYear();
+
+    document.getElementById("ageText").innerHTML=
+    "🎉 You are "+age+" Years Old! 🎉";
+
+    document.getElementById("wishText").innerHTML=`
+    Happy Birthday ${name}! 🎉<br>
+    May your day be filled with happiness 💖<br>
+    May all your dreams come true 🎁<br>
+    Stay blessed and keep smiling 🌟<br>
+    Enjoy every moment 🥳
+    `;
+
+    /* 🔊 SOUND ON AFTER NEXT CLICK */
+    let vids = document.querySelectorAll("video");
+    vids.forEach(v => {
+        v.muted = false;
+        v.play();
+    });
+}
+
+</script>
+
+</body>
+</html>
